@@ -1,0 +1,19 @@
+{
+  "name": "browserman-client",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "browserman": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "~2.2.0",
+    "semver": "~2.2.1",
+    "winston": "~0.7.3"
+  }
+}
