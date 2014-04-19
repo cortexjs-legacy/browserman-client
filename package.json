@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "browserman": "./index.js"
+    "browserman": "./bin/browserman"
   },
   "scripts": {
     "start": "node index.js"

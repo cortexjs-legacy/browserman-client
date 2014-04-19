@@ -1,24 +1,33 @@
-#!/usr/bin/env node
+var logger = require('./lib/logger');
 
-var program = require('commander');
-program.version('0.0.1')
+var Browserman = require('./lib/browserman');
 
-program
-    .command('run')
-    .description('test a page in all browsers that meets the requirement')
-    .option('-d, --destination [destination]', 'the destination page url to test')
-    .option('-b, --browser [browser]', 'browser name, valid values are {Chrome|Firefox|Safari|IE}')
-    .option('-v, --version [version]', 'browser version, use semver to specify, for example: ^34.0')
-    .action(function(options) {
-        require('./lib/run').execute({
-            url: options.destination,
-            requirement: {
-                name: options.browser || 'ALL',
-                version: options.version || '*'
-            }
-        });
-    });
+var browserman = new Browserman();
+
+// browserman.list(function(err, workers) {
+//     if (err) {
+//         return logger.error(err.message);
+//     }
+
+//     for (var i = workers.length - 1; i >= 0; i--) {
+//         logger.info(workers[i]);
+//     };
+
+//     browserman.exit();
+// });
 
 
-program.parse(process.argv);
-if (program.args.length === 0) program.help()
+browserman.test({
+        url: 'http://localhost:9000/public/test.html',
+        requirement: {
+            name: 'ALL',
+            version: '>0.0.0'
+        }
+    },
+    function(result) {
+        for (var i = result.length - 1; i >= 0; i--) {
+            logger.info('test done: %s', JSON.stringify(result[i]));
+        }
+        browserman.exit();
+    }
+)
