@@ -2,13 +2,30 @@ var Browserman = require('../lib/browserman');
 var logger = require('../lib/logger');
 
 module.exports.execute = function(options) {
-    browserman = new Browserman();
-    browserman.test(options,
-        function(result) {
-            for (var i = result.length - 1; i >= 0; i--) {
-                logger.success('test done: %s', JSON.stringify(result[i]));
-            }
-            browserman.exit();
-        }
-    )
+	browserman = new Browserman();
+	browserman.test(options,
+		function(results) {
+			for (var i = results.length - 1; i >= 0; i--) {
+				printTestResult(results[i])
+			}
+			browserman.exit();
+		}
+	)
+}
+
+function printTestResult(result) {
+	var browser = result.browser;
+	var data = result.data;
+	logger.info('-------------------------------------------------');
+	logger.info('passes:%d failures:%d on %s(%s)', data.passes.length, data.failures.length,browser.name,browser.version);
+	logger.info('-------------------------------------------------');
+
+	for (var i = data.passes.length - 1; i >= 0; i--) {
+		logger.pass(data.passes[i].fullTitle)
+	};
+	for (var i = data.failures.length - 1; i >= 0; i--) {
+		logger.fail(data.failures[i].fullTitle)
+	};
+	logger.info('');
+
 }

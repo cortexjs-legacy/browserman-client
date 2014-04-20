@@ -14,13 +14,13 @@ module.exports.execute = function() {
 			logger.warn('no worker found');
 			browserman.exit();
 		}
-
-		logger.success('%s workers found',workers.length);
+		logger.info('----------------------');
+		logger.info('%s workers found',workers.length);
+		logger.info('----------------------');
 
 		for (var i = workers.length - 1; i >= 0; i--) {
-			logger.info(JSON.stringify(workers[i]));
+			logger.info('%s(%s)', workers[i].name, workers[i].version);
 		};
-
 		browserman.exit();
 	});
 }
