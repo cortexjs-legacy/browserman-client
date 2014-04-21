@@ -4,7 +4,7 @@ var config=require('../lib/config');
 var colors=require('colors');
 
 module.exports.execute = function(options) {
-	browserman = new Browserman(config.load());
+	var browserman = new Browserman(config.load());
 	browserman.test(options,
 		function(err, results) {
 			for (var i = results.length - 1; i >= 0; i--) {
