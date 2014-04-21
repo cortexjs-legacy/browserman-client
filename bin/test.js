@@ -1,6 +1,7 @@
 var Browserman = require('../lib/browserman');
 var logger = require('../lib/logger');
 var config=require('../lib/config');
+var colors=require('colors');
 
 module.exports.execute = function(options) {
 	browserman = new Browserman(config.load());
@@ -17,16 +18,18 @@ module.exports.execute = function(options) {
 function printTestResult(result) {
 	var browser = result.browser;
 	var data = result.data;
-	logger.info('---------------------------------------------------------------');
-	logger.info('passes:%d failures:%d on %s(%s)', data.passes.length, data.failures.length, browser.name, browser.version);
-	logger.info('---------------------------------------------------------------');
+	console.log('-----------------------------------------------------------');
+	console.log('passes: %d failures: %d on %s(%s)', data.passes.length, data.failures.length, browser.name, browser.version);
+	console.log('-----------------------------------------------------------');
 
 	for (var i = data.passes.length - 1; i >= 0; i--) {
-		logger.pass(data.passes[i].fullTitle)
+		console.log('\u2713 '.green + data.passes[i].fullTitle)
 	};
 	for (var i = data.failures.length - 1; i >= 0; i--) {
-		logger.fail(data.failures[i].fullTitle)
+		console.log('\u2717 '.red + data.failures[i].fullTitle)
+		console.log('	'+ data.failures[i].error.red)
+
 	};
-	logger.info('');
+	console.log('');
 
 }
