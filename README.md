@@ -25,7 +25,7 @@ and you would find the browsers that are ready to work:
 	
 ###Run a test:
 
-the usage:
+usage:
 
 	Usage: test [options]
 		
