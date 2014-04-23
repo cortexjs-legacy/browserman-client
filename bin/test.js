@@ -6,6 +6,10 @@ var colors = require('colors');
 module.exports.execute = function(options) {
 	var browserman = new Browserman(config.load());
 	browserman.test(options, function(err, results) {
+		if (err) {
+			console.log(err.message);
+			browserman.exit();
+		}
 		if (options.verbose) {
 			printVerboseTestResult(results)
 
