@@ -4,17 +4,12 @@ var config = require('../lib/config');
 var colors = require('colors');
 
 module.exports.execute = function() {
-
+	
 	var browserman = new Browserman(config.load());
-
-	browserman.list(function(err, workers) {
-		if (err) {
-			console.log(err.message);
-			browserman.exit();
-		}
+	var list= browserman.list();
+	list.on('data', function(workers) {
 		if (!workers || workers.length == 0) {
 			console.log('no worker found');
-			browserman.exit();
 		}
 		console.log('-------------------------------------------');
 		console.log('%s workers found', workers.length);
@@ -23,6 +18,9 @@ module.exports.execute = function() {
 		for (var i = workers.length - 1; i >= 0; i--) {
 			console.log('%s(%s)', workers[i].name, workers[i].version);
 		};
-		browserman.exit();
-	});
+	}).on('error',function(err){
+		console.log('connection error');
+	}).on('end', function() {
+		process.exit(0);
+	})
 }

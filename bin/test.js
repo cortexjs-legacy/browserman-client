@@ -4,53 +4,43 @@ var config = require('../lib/config');
 var colors = require('colors');
 
 module.exports.execute = function(options) {
+	
 	var browserman = new Browserman(config.load());
-	browserman.test(options, function(err, results) {
-		if (err) {
-			console.log(err.message);
-			browserman.exit();
-		}
+	var test = browserman.test(options);
+	test.on('data', function(result) {
 		if (options.verbose) {
-			printVerboseTestResult(results)
-
+			printVerboseResult(result)
 		} else {
-			printTestResult(results)
+			printResult(result)
 		}
-
-		browserman.exit();
+	}).on('error', function(err) {
+		console.log('connection error');
+	}).on('end', function() {
+		process.exit(0);
 	})
 }
 
-function printTestResult(results) {
-	for (var i = results.length - 1; i >= 0; i--) {
-		var result = results[i]
-		var browser = result.browser;
-		var data = result.data;
-		var prefix=data.failures.length==0? '\u2713'.green : '\u2717'.red;
-		console.log('%s passes: %d failures: %d on %s(%s)',prefix, data.passes.length, data.failures.length, browser.name, browser.version);
-	}
-
+function printResult(result) {
+	var browser = result.browser;
+	var data = result.data;
+	var prefix = data.failures.length == 0 ? '\u2713'.green : '\u2717'.red;
+	console.log('%s passes: %d failures: %d on %s(%s)', prefix, data.passes.length, data.failures.length, browser.name, browser.version);
 }
 
-function printVerboseTestResult(results) {
-	for (var i = results.length - 1; i >= 0; i--) {
-		var result = results[i]
-		var browser = result.browser;
-		var data = result.data;
-		var prefix=data.failures.length==0? '\u2713'.green : '\u2717'.red;
-		console.log('-----------------------------------------------------------');
-		console.log('%s passes: %d failures: %d on %s(%s)',prefix, data.passes.length, data.failures.length, browser.name, browser.version);
-		console.log('-----------------------------------------------------------');
+function printVerboseResult(result) {
+	var browser = result.browser;
+	var data = result.data;
+	var prefix = data.failures.length == 0 ? '\u2713'.green : '\u2717'.red;
+	console.log('-----------------------------------------------------------');
+	console.log('%s passes: %d failures: %d on %s(%s)', prefix, data.passes.length, data.failures.length, browser.name, browser.version);
+	console.log('-----------------------------------------------------------');
+	for (var j = data.passes.length - 1; j >= 0; j--) {
+		console.log('\u2713 '.green + data.passes[j].fullTitle)
+	};
+	for (var j = data.failures.length - 1; j >= 0; j--) {
+		console.log('\u2717 '.red + data.failures[j].fullTitle)
+		console.log('	' + data.failures[j].error.red)
 
-		for (var j = data.passes.length - 1; j >= 0; j--) {
-			console.log('\u2713 '.green + data.passes[j].fullTitle)
-		};
-		for (var j = data.failures.length - 1; j >= 0; j--) {
-			console.log('\u2717 '.red + data.failures[j].fullTitle)
-			console.log('	' + data.failures[j].error.red)
-
-		};
-		console.log('');
-	}
-
+	};
+	console.log('');
 }
