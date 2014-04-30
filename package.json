@@ -6,11 +6,9 @@
   "bin": {
     "browserman": "./bin/browserman"
   },
-  "scripts": {
-    "start": "node index.js"
-  },
+  "scripts": {},
   "author": "",
-  "license": "ISC",
+  "license": "BSD",
   "dependencies": {
     "commander": "~2.2.0",
     "semver": "~2.2.1",
