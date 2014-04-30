@@ -4,7 +4,6 @@ var config = require('../lib/config');
 var colors = require('colors');
 
 module.exports.execute = function(options) {
-	
 	var browserman = new Browserman(config.load());
 	var test = browserman.test(options);
 	test.on('data', function(result) {
@@ -14,7 +13,7 @@ module.exports.execute = function(options) {
 			printResult(result)
 		}
 	}).on('error', function(err) {
-		console.log('connection error');
+		console.log(err.message);
 	}).on('end', function() {
 		process.exit(0);
 	})

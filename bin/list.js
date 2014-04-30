@@ -19,7 +19,7 @@ module.exports.execute = function() {
 			console.log('%s(%s)', workers[i].name, workers[i].version);
 		};
 	}).on('error',function(err){
-		console.log('connection error');
+		console.log(err.message);
 	}).on('end', function() {
 		process.exit(0);
 	})
