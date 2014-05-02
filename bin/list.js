@@ -7,7 +7,7 @@ module.exports.execute = function() {
 	
 	var browserman = new Browserman(config.load());
 	var list= browserman.list();
-	list.on('data', function(workers) {
+	list.on('done', function(workers) {
 		if (!workers || workers.length == 0) {
 			console.log('no worker found');
 		}
@@ -20,7 +20,7 @@ module.exports.execute = function() {
 		};
 	}).on('error',function(err){
 		console.log(err.message);
-	}).on('end', function() {
+	}).on('complete', function() {
 		process.exit(0);
 	})
 }

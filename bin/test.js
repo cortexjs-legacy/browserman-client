@@ -8,7 +8,7 @@ var cp = require('child_process');
 module.exports.execute = function(options) {
 	var browserman = new Browserman(config.load());
 	var test = browserman.test(options);
-	test.on('data', function(result) {
+	test.on('done', function(result) {
 		if (options.verbose) {
 			printVerboseResult(result)
 		} else {
@@ -23,7 +23,7 @@ module.exports.execute = function(options) {
 		}
 	}).on('error', function(err) {
 		console.log(err.message);
-	}).on('end', function() {
+	}).on('complete', function() {
 		process.exit(0);
 	})
 }
