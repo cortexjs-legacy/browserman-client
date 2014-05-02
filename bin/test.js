@@ -2,6 +2,8 @@ var Browserman = require('../lib/browserman');
 var logger = require('../lib/logger');
 var config = require('../lib/config');
 var colors = require('colors');
+var fs = require('fs');
+var cp = require('child_process');
 
 module.exports.execute = function(options) {
 	var browserman = new Browserman(config.load());
@@ -39,7 +41,20 @@ function printVerboseResult(result) {
 	for (var j = data.failures.length - 1; j >= 0; j--) {
 		console.log('\u2717 '.red + data.failures[j].fullTitle)
 		console.log('	' + data.failures[j].error.red)
-
 	};
+	if (result.snapshot) {
+		openSnapshot({
+			snapshot: result.snapshot,
+			title: browser.name + '(' + browser.version + ')'
+		});
+	}
 	console.log('');
+}
+
+function openSnapshot(options) {
+	var html='<html><body>'+options.snapshot+'</body></html>';
+	var path=config.home()+'/'+options.title+'.html';
+	fs.writeFileSync(path, html);
+	console.log('');
+	console.log('  save snapshot to: %s', path);
 }
