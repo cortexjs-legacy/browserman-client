@@ -26,15 +26,17 @@ program
     .command('test')
     .description('test a page in all browsers that meets the requirement')
     .option('-d, --destination [destination]', 'the destination page url to test')
-    .option('-b, --browser [browser]', 'browser name, valid values are {Chrome|Firefox|Safari|IE}')
-    .option('-v, --version [version]', 'browser version, use semver to specify, for example: ^34.0')
-    .option('-V, --verbose [verbose]', 'verbose or not')
+    .option('-b, --browser [browser]', 'browser name, valid values are {chrome|firefox|safari|ie}')
+    .option('-v, --version [version]', 'browser version, for example: >34.0')
+    .option('-V, --verbose [verbose]', 'needs verbose output or not')
+    .option('-s, --screenshot [screenshot]', 'wants a screenshot or not')
     .action(function(options) {
         require('../bin/test').execute({
             url: options.destination || 'http://localhost:9000/public/test.html',
             requirement: {
                 name: options.browser || '',
-                version: options.version || '*'
+                version: options.version || '*',
+                screenshot:options.screenshot || false
             },
             verbose: options.verbose || false
         });
