@@ -4,9 +4,14 @@ var config = require('../lib/config');
 var colors = require('colors');
 var fs = require('fs');
 var cp = require('child_process');
-var sf=require('string-format');
+var sf = require('string-format');
 
 module.exports.execute = function(options) {
+	if (!isValidUrl(options.url)){
+		console.log('invalid url: %s',options.url);
+		return;
+	}
+
 	var browserman = new Browserman(config.load());
 	var test = browserman.test(options);
 	test.on('done', function(result) {
@@ -27,6 +32,10 @@ module.exports.execute = function(options) {
 	}).on('complete', function() {
 		process.exit(0);
 	})
+}
+
+function isValidUrl(url) {
+	return /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(url);
 }
 
 function printResult(result) {
