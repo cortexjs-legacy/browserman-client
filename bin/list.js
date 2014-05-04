@@ -15,9 +15,10 @@ module.exports.execute = function() {
 		console.log('%s workers found', workers.length);
 		console.log('-------------------------------------------');
 
-		for (var i = workers.length - 1; i >= 0; i--) {
-			console.log('%s(%s)', workers[i].name, workers[i].version);
-		};
+		workers.forEach(function(worker){
+			console.log('%s %s / %s', worker.name, worker.version,worker.os);
+		});
+		
 	}).on('error',function(err){
 		console.log(err.message);
 	}).on('complete', function() {

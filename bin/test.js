@@ -4,6 +4,7 @@ var config = require('../lib/config');
 var colors = require('colors');
 var fs = require('fs');
 var cp = require('child_process');
+var sf=require('string-format');
 
 module.exports.execute = function(options) {
 	var browserman = new Browserman(config.load());
@@ -18,7 +19,7 @@ module.exports.execute = function(options) {
 			var browser = result.browser;
 			saveScreenshot({
 				screenshot: result.screenshot,
-				title: browser.name + '(' + browser.version + ')'
+				title: '{name}({version}-{os})'.format(browser)
 			});
 		}
 	}).on('error', function(err) {
@@ -32,7 +33,7 @@ function printResult(result) {
 	var browser = result.browser;
 	var data = result.data;
 	var prefix = data.failures.length == 0 ? '\u2713'.green : '\u2717'.red;
-	console.log('%s passes: %d failures: %d on %s(%s)', prefix, data.passes.length, data.failures.length, browser.name, browser.version);
+	console.log('%s passes: %d failures: %d on %s %s / %s', prefix, data.passes.length, data.failures.length, browser.name, browser.version, browser.os);
 }
 
 function printVerboseResult(result) {
@@ -40,7 +41,7 @@ function printVerboseResult(result) {
 	var data = result.data;
 	var prefix = data.failures.length == 0 ? '\u2713'.green : '\u2717'.red;
 	console.log('-----------------------------------------------------------');
-	console.log('%s passes: %d failures: %d on %s(%s)', prefix, data.passes.length, data.failures.length, browser.name, browser.version);
+	console.log('%s passes: %d failures: %d on %s %s / %s', prefix, data.passes.length, data.failures.length, browser.name, browser.version, browser.os);
 	console.log('-----------------------------------------------------------');
 	for (var j = data.passes.length - 1; j >= 0; j--) {
 		console.log('\u2713 '.green + data.passes[j].fullTitle)
