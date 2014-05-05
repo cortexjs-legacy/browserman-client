@@ -25,14 +25,14 @@ program
 program
     .command('test')
     .description('test a page in all browsers that meets the requirement')
-    .option('-d, --destination [destination]', 'the destination page url to test')
-    .option('-b, --browser [browser]', 'browser name, valid values are {chrome|firefox|safari|ie}')
-    .option('-v, --version [version]', 'browser version, for example: >34.0')
-    .option('-V, --verbose [verbose]', 'needs verbose output or not')
+    .option('-u, --url [url]', 'url of the page to test')
+    .option('-b, --browser [browser]', 'browser name')
+    .option('-v, --version [version]', 'browser version, for example: >16.0.0')
+    .option('-d, --verbose [verbose]', 'needs verbose output or not')
     .option('-s, --screenshot [screenshot]', 'wants a screenshot or not')
     .action(function(options) {
         require('../bin/test').execute({
-            url: options.destination || 'http://localhost:9000/public/test.html',
+            url: options.url || 'http://browserman.dp:9000/public/test.html',
             requirement: {
                 name: options.browser || '',
                 version: options.version || '*',
