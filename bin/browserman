@@ -26,7 +26,7 @@ program
     .command('test')
     .description('test a page in all browsers that meets the requirement')
     .option('-u, --url [url]', 'url of the page to test')
-    .option('-h, --html [html]', 'path of the page to test')
+    .option('-t, --html [html]', 'path of the page to test')
     .option('-p, --script [script]', 'path of the script file to test')
     .option('-b, --browser [browser]', 'browser name')
     .option('-v, --version [version]', 'browser version, for example: >16.0.0')
