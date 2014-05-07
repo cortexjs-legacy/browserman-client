@@ -45,9 +45,9 @@ function printVerboseResult(result) {
 	var browser = result.browser;
 	var data = result.data;
 	var prefix = data.failures.length == 0 ? '\u2713'.green : '\u2717'.red;
-	console.log('-----------------------------------------------------------');
+	console.log('-----------------------------------------------------------'.rainbow);
 	console.log('%s passes: %d failures: %d on %s %s / %s', prefix, data.passes.length, data.failures.length, browser.name, browser.version, browser.os);
-	console.log('-----------------------------------------------------------');
+	console.log('-----------------------------------------------------------'.rainbow);
 	for (var j = data.passes.length - 1; j >= 0; j--) {
 		console.log('\u2713 '.green + data.passes[j].fullTitle)
 	};

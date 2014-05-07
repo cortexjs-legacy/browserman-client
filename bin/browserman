@@ -34,7 +34,7 @@ program
     .action(function(options) {
         require('../bin/test').execute({
             url: options.url || 'http://browserman.dp:9000/public/test.html',
-            path: options.path,
+            path: options.path || '/Users/ltebean/Desktop/runner.html',
             script: options.script,
             requirement: {
                 name: options.browser || '',
