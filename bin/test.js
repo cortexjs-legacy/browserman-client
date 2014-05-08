@@ -53,7 +53,7 @@ function printVerboseResult(result) {
 	};
 	for (var j = data.failures.length - 1; j >= 0; j--) {
 		console.log('\u2717 '.red + data.failures[j].fullTitle)
-		console.log('	' + data.failures[j].error.red)
+		console.log('  ' + data.failures[j].err.stack.red)
 	};
 	console.log('');
 }
