@@ -30,12 +30,13 @@ program
     .option('-b, --browser [browser]', 'browser name')
     .option('-v, --version [version]', 'browser version, for example: >16.0.0')
     .option('-d, --verbose', 'needs verbose output or not')
+    .option('-r, --reporter [reporter]', 'which reporter to use, defaults to base reporter')
     .option('-s, --screenshot', 'wants a screenshot or not')
     .action(function(options) {
         require('../bin/test').execute({
             url: options.url || 'http://browserman.dp:9000/public/test.html',
             path: options.path,
-            script: options.script,
+            reporter: options.reporter ||'base',
             requirement: {
                 name: options.browser || '',
                 version: options.version || '*',
