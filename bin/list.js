@@ -19,8 +19,6 @@ module.exports.execute = function() {
 			console.log('%s %s / %s', worker.name, worker.version,worker.os);
 		});
 		
-	}).on('timeout',function(){
-		console.log('timeout');
 	}).on('error',function(err){
 		console.log(err.message);
 	}).on('complete', function() {
