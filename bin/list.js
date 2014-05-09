@@ -6,10 +6,10 @@ var colors = require('colors');
 module.exports.execute = function() {
 	
 	var browserman = new Browserman(config.load());
-	var list= browserman.list();
-	list.on('done', function(workers) {
+	browserman.list().on('done', function(workers) {
 		if (!workers || workers.length == 0) {
 			console.log('no worker found');
+			return;
 		}
 		console.log('-------------------------------------------'.rainbow);
 		console.log('%s workers found', workers.length);

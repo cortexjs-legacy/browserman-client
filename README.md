@@ -1,3 +1,5 @@
+#CLI
+
 ###Usage:
 
 	Usage: browserman [options] [command]
@@ -31,10 +33,13 @@ usage:
 		
 		Options:
 		
-			-d, --destination [destination]  the destination page url to test
-			-b, --browser [browser]          browser name
-			-v, --version [version]          browser version, for example: >2.0
-			-V, --verbose [version]          verbose or not
+			-u, --url [url]            url of the page to test
+    		-p, --path [path]          path of the page to test
+    		-b, --browser [browser]    browser name
+    		-v, --version [version]    browser version, for example: >16.0.0
+    		-d, --verbose              needs verbose output or not
+    		-r, --reporter [reporter]  which reporter to use, defaults to base reporter
+    		-s, --screenshot           wants a screenshot or not
 
 for example, run: 
 
@@ -68,3 +73,43 @@ and you can use --verbose to see the detail:
 	✓ Foobar #convertText() should convert text
 	✓ Foobar #runMethod() should run a method
 	✓ Foobar #sayHello() should return some text
+	
+#Program API
+
+Browserman also offers javascript api:
+
+###List
+
+	var browserman = new Browserman({
+		host:'browserman.dp',
+		port:'9000'
+	});
+		
+	browserman.list().('done', function(workers) {
+		// you get the workers
+	}).on('error',function(err){
+		// an error occured
+	}).on('complete', function() {
+		// completed
+	});
+	
+###Test
+
+	var browserman = new Browserman({
+		host:'browserman.dp',
+		port:'9000'
+	});
+		
+	browserman.test({
+		url:''
+		requirement:{
+			name:'chrome',
+			version:'>1.0.0'
+		}
+	}).on('done', function(result) {
+		// result by one browser
+	}).on('error',function(err){
+		// an error occured
+	}).on('complete', function() {
+		// completed
+	})
