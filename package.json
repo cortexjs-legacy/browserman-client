@@ -1,13 +1,24 @@
 {
   "name": "browserman-client",
-  "version": "0.0.5",
-  "description": "",
+  "version": "0.0.6",
+  "description": "test you code in real browsers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cortexjs/browserman-client"
+  },
   "main": "index.js",
   "bin": {
     "browserman": "./bin/browserman"
   },
+  "keywords": [
+    "test",
+    "browser"
+  ],
   "scripts": {},
-  "author": "",
+  "author": {
+    "name": "ltebean",
+    "email": "yucong1118@gmail.com"
+  }
   "license": "BSD",
   "dependencies": {
     "commander": "~2.2.0",
@@ -15,6 +26,7 @@
     "winston": "~0.7.3",
     "socket.io-client": "~0.9.16",
     "colors": "^0.6.2",
-    "string-format": "^0.2.1"
+    "string-format": "^0.2.1",
+    "jsdom": "^0.10.5"
   }
 }
