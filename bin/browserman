@@ -27,8 +27,7 @@ program
     .description('test a page in all browsers that meets the requirement')
     .option('-u, --url [url]', 'url of the page to test')
     .option('-p, --path [path]', 'path of the page to test')
-    .option('-b, --browser [browser]', 'browser name')
-    .option('-v, --version [version]', 'browser version, for example: >16.0.0')
+    .option('-b, --browser [browser]', '["chrome@>10.0.0","firefox@>6.0.0"]')
     .option('-d, --verbose', 'needs verbose output or not')
     .option('-r, --reporter [reporter]', 'which reporter to use, defaults to base reporter')
     .option('-s, --screenshot', 'wants a screenshot or not')
@@ -38,8 +37,7 @@ program
             path: options.path,
             reporter: options.reporter ||'base',
             requirement: {
-                name: options.browser || '',
-                version: options.version || '*',
+                browser:JSON.parse(options.browser||"[]"),
                 screenshot: options.screenshot || false
             },
             verbose: options.verbose || false

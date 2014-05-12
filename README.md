@@ -35,15 +35,14 @@ usage:
 		
 			-u, --url [url]            url of the page to test
     		-p, --path [path]          path of the page to test
-    		-b, --browser [browser]    browser name
-    		-v, --version [version]    browser version, for example: >16.0.0
+    		-b, --browser [browser]    ["chrome@>10.0.0","firefox@>6.0.0"]
     		-d, --verbose              needs verbose output or not
     		-r, --reporter [reporter]  which reporter to use, defaults to base reporter
     		-s, --screenshot           wants a screenshot or not
 
 for example, run: 
 
-	browserman test --destination='http://localhost:9000/public/test.html' 
+	browserman test -u 'http://browserman.dp:9000/public/test.html' 
 	
 you will see:
 	
@@ -101,10 +100,15 @@ Browserman also offers javascript api:
 	});
 		
 	browserman.test({
-		url:''
+		path:'path or html file',
+		url:'page url',
+		timeout:50000,
 		requirement:{
-			name:'chrome',
-			version:'>1.0.0'
+			browser:[
+				'chrome@>10.0.0',
+				'firefox@>6.0.0'
+			],
+			screenshot:false
 		}
 	}).on('done', function(result) {
 		// result by one browser
