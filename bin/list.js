@@ -11,9 +11,9 @@ module.exports.execute = function() {
 			console.log('no worker found');
 			return;
 		}
-		console.log('-------------------------------------------'.rainbow);
+		console.log('-------------------------------------------');
 		console.log('%s workers found', workers.length);
-		console.log('-------------------------------------------'.rainbow);
+		console.log('-------------------------------------------');
 
 		workers.forEach(function(worker){
 			console.log('%s %s / %s', worker.name, worker.version,worker.os);

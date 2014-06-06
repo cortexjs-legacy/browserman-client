@@ -25,6 +25,7 @@ program
 program
     .command('test')
     .description('test a page in all browsers that meets the requirement')
+    .option('-a, --appname [appname]', 'app name')
     .option('-u, --url [url]', 'url of the page to test')
     .option('-p, --path [path]', 'path of the page to test')
     .option('-b, --browser [browser]', '["chrome@>10.0.0","firefox@>6.0.0"]')
@@ -33,11 +34,12 @@ program
     .option('-s, --screenshot', 'wants a screenshot or not')
     .action(function(options) {
         require('../bin/test').execute({
+            appName: options.appname,
             url: options.url || 'http://browserman.dp:9000/public/test.html',
             path: options.path,
-            reporter: options.reporter ||'base',
+            reporter: options.reporter || 'base',
             requirement: {
-                browser:JSON.parse(options.browser||"[]"),
+                browser: JSON.parse(options.browser || "[]"),
                 screenshot: options.screenshot || false
             },
             verbose: options.verbose || false
